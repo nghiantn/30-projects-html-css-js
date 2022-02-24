@@ -1,6 +1,6 @@
 let elToShow = document.querySelectorAll('.show-on-scroll')
 
-let isElInViewPort = (el) => {
+let isElInViewPort = el => {
     let rect = el.getBoundingClientRect()
     let viewHeight = window.innerHeight || document.documentElement.clientHeight
 
@@ -12,12 +12,11 @@ let isElInViewPort = (el) => {
 }
 
 function loop() {
-    elToShow.forEach((item) => {
-        if (isElInViewPort(item)) {
+    elToShow.forEach(item => {
+        if (isElInViewPort(item))
             item.classList.add('start')
-        } else {
+        else
             item.classList.remove('start')
-        }
     })
 }
 
