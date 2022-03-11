@@ -1,27 +1,24 @@
-const draggable = document.querySelector('.draggable')
+const targetList = document.querySelectorAll('.draggable')
 const boxes = document.querySelectorAll('.box')
 
-draggable.addEventListener('dragstart', dragStart)
-draggable.addEventListener('dragend', dragEnd)
+let currentTarget
 
-boxes.forEach(box => {
-    box.addEventListener('dragover', dragOver)
-    box.addEventListener('drop', dragDrop)
+targetList.forEach(target => {
+    target.addEventListener('dragstart', function (e) {
+        this.classList.add('dragging')
+        currentTarget = this
+    })
+    target.addEventListener('dragend', function (e) {
+        this.classList.remove('dragging')
+    })
 })
 
-function dragStart() {
-    this.classList.add('dragging')
-}
-
-function dragEnd() {
-    this.classList.remove('dragging')
-}
-
-function dragOver(e) {
-    e.preventDefault()
-    this.appendChild(draggable)
-}
-
-function dragDrop() {
-    this.appendChild(draggable)
-}
+boxes.forEach(box => {
+    box.addEventListener('dragover', function (e) {
+        e.preventDefault()
+    })
+    box.addEventListener('drop', function (e) {
+        if (!box.querySelector('.draggable'))
+            this.appendChild(currentTarget)
+    })
+})
